@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _images = [
     "assets/images/bg1.png",
     "assets/images/bg2.jpg",
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 10.0),
@@ -59,12 +62,29 @@ class _HomePageState extends State<HomePage> {
                 height: 30,
                 child: Image.asset("assets/icons/language.png", fit: BoxFit.cover)),
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Icon(Icons.menu),
+                padding: const EdgeInsets.only(left: 5.0, right: 10.0),
+                child: IconButton(
+                icon: const Icon(Icons.menu, color: Colors.black87),
+                onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
+              ),
+                
               ),
             ],
           )
         ],
+      ),
+      endDrawer: Drawer(
+        child: SafeArea(
+          child: ListView(
+            children:  [
+              ListTile(leading: Icon(Icons.subject), title: Text("Profile")),
+              ListTile(leading: Icon(Icons.info), title: Text("Events")),
+              ListTile(leading: Icon(Icons.contact_mail), title: Text("Courses")),
+              ListTile(leading: Icon(Icons.info), title: Text("")),
+              ListTile(leading: Icon(Icons.contact_mail), title: Text("İletişim")),
+            ],
+          ),
+        ),
       ),
       body: ListView(
         children: [
